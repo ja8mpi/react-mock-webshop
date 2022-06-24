@@ -1,0 +1,16 @@
+{
+    "users":[
+        {
+            "firstname":"Ákos",
+            "lastname":"Bollók",
+            "email":"bollokakos.14@gmail.com",
+            "password":"12345"
+        },
+        {
+            "firstname":"admin",
+            "lastname":"admin",
+            "email":"admin@gmail.com",
+            "password":"12345"
+        }
+    ]
+}
