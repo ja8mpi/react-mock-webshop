@@ -1,9 +1,7 @@
-import React from 'react'
-import { Typography } from '@mui/material';
 import { Routes, Route } from "react-router-dom";
 import Home from './components/home/Home';
 import Store from './components/store/Store';
-import Login from './components/login/Login';
+import SignIn from './components/signin/Signin';
 import Signup from './components/signup/Signup';
 import NavBar from './components/navbar/NavBar';
 
@@ -14,7 +12,7 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/store' element={<Store />} />
-                <Route path='/login' element={<Login />} />
+                <Route path='/signin' element={<SignIn />} />
                 <Route path='/signup' element={<Signup />} />
             </Routes>
         </>

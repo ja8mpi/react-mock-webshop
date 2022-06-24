@@ -51,14 +51,14 @@ const NavBar = () => {
           <Button
             color="inherit"
             component={Link}
-            to='./login'
-          >Login</Button>
+            to='./signin'
+          >Sign in</Button>
           <Button
             color="inherit"
             variant='outlined'
             component={Link}
             to='./signup'
-          >Signup</Button>
+          >Sign up</Button>
         </Stack>
       </Toolbar>
     </AppBar >

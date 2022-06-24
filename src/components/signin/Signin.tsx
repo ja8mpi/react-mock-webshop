@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const Signup = () => {
+const SignIn = () => {
     return (
         <Container>
             <Box
@@ -28,31 +28,10 @@ const Signup = () => {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h4">
-                    Sign up
+                    Sign in
                 </Typography>
                 <Box component="form" noValidate onSubmit={() => console.log('submit')} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="given-name"
-                                name="firstName"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                autoFocus
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="family-name"
-                            />
-                        </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 required
@@ -74,17 +53,6 @@ const Signup = () => {
                                 autoComplete="new-password"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                fullWidth
-                                name="verify-password"
-                                label="Verify password"
-                                type="password"
-                                id="verify-password"
-                                autoComplete="verify-password"
-                            />
-                        </Grid>
                         {/* <Grid item xs={12}>
                             <FormControlLabel
                                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -102,15 +70,22 @@ const Signup = () => {
                             mb: 2,
                         }}
                     >
-                        Sign Up
+                        Sign In
                     </Button>
-                    <Grid container justifyContent="flex-end">
-                        <Grid item>
+                    <Grid container>
+                        <Grid item xs>
                             <MUILink
-                                to="/signin"
+                                to="#"
                                 component={Link}
                             >
-                                Already have an account? Sign in
+                                Forgot password?
+                            </MUILink>
+                        </Grid>
+                        <Grid item>
+                            <MUILink
+                                to="/signup"
+                                component={Link}>
+                                {"Don't have an account? Sign Up"}
                             </MUILink>
                         </Grid>
                     </Grid>
@@ -120,4 +95,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default SignIn;
