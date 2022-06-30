@@ -20,6 +20,13 @@
       "lastname": "wekáokrqwő",
       "email": "asd@as.com",
       "password": "123456"
+    },
+    {
+      "id": "6c06b6d3-b1cc-4ccb-adee-a78c3ff38036",
+      "firstname": "asd",
+      "lastname": "dsa",
+      "email": "asd@asd.com",
+      "password": "asdasd"
     }
   ],
   "products": [

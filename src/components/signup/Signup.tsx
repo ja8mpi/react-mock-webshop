@@ -71,6 +71,7 @@ const Signup = () => {
         axios.post('http://localhost:5000/users', user)
             .then((response) => {
                 console.log(response);
+                methods.reset();
             })
             .catch((error) => {
                 console.log(error);
