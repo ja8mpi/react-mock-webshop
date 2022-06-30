@@ -4,8 +4,12 @@ import Store from './components/store/Store';
 import SignIn from './components/signin/Signin';
 import Signup from './components/signup/Signup';
 import NavBar from './components/navbar/NavBar';
+// import { ShopProvider } from "./contexts/ProductsContext";
 
 const App = () => {
+
+    const isLoggedIn = true;
+
     return (
         <>
             < NavBar />

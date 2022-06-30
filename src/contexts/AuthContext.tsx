@@ -1,7 +1,12 @@
-import React from 'react'
+import { render } from '@testing-library/react';
+import { createContext } from 'react'
 
-export const AuthContext = () => {
-    return (
-        <div>AuthContext</div>
-    )
-}
+const AuthContext = createContext(null);
+
+// export default function AuthProvider({ children }) {
+//     return (
+//         <AuthContext.Provider>
+//             {children}
+//         </AuthContext.Provider>
+//     )
+// }

@@ -1,9 +1,11 @@
 import { Typography } from '@mui/material';
-import React from 'react'
+import React, { useContext } from 'react'
 
 const Store = () => {
+
     return (
         <Typography variant='h1'>Store</Typography>
+
     )
 }
 
