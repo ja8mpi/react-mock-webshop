@@ -1,42 +1,49 @@
 {
-    "users":[
-        {
-            "id":1,
-            "firstname":"Ákos",
-            "lastname":"Bollók",
-            "email":"bollokakos.14@gmail.com",
-            "password":"12345"
-        },
-        {
-            "id":2,
-            "firstname":"admin",
-            "lastname":"admin",
-            "email":"admin@gmail.com",
-            "password":"12345"
-        }
-    ],
-    "products":[
-        {
-            "id":1,
-            "name":"Lego car",
-            "category":{
-                "category":"toy",
-                "subcategory":"lego"
-            },
-            "price":53.23,
-            "productionYear":"2021",
-            "description":""
-        },
-        {
-            "id":2,
-            "name":"Lego plane",
-            "category":{
-                "category":"toy",
-                "subcategory":"lego"
-            },
-            "price":53.23,
-            "productionYear":"2021",
-            "description":""
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "firstname": "Ákos",
+      "lastname": "Bollók",
+      "email": "bollokakos.14@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": 2,
+      "firstname": "admin",
+      "lastname": "admin",
+      "email": "admin@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "53308ee3-0476-4bdc-9850-46d9441c8d82",
+      "firstname": "asddsa",
+      "lastname": "wekáokrqwő",
+      "email": "asd@as.com",
+      "password": "123456"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Lego car",
+      "category": {
+        "category": "toy",
+        "subcategory": "lego"
+      },
+      "price": 53.23,
+      "productionYear": "2021",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "name": "Lego plane",
+      "category": {
+        "category": "toy",
+        "subcategory": "lego"
+      },
+      "price": 53.23,
+      "productionYear": "2021",
+      "description": ""
+    }
+  ]
 }

@@ -6,12 +6,11 @@ export const SignupFormInput = ({
     autoFocus,
     label,
     id,
-    name
+    name,
+    type
 }: any) => {
 
     const { control, formState: { errors } } = useFormContext();
-
-    console.log(errors[name]?.message)
 
     return (
         <Controller
@@ -24,6 +23,7 @@ export const SignupFormInput = ({
                     autoFocus={autoFocus}
                     fullWidth
                     id={id}
+                    type={type}
                     label={label}
                     error={Object.hasOwnProperty.call(errors, name) ? true : false}
                     helperText={

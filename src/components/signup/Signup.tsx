@@ -7,7 +7,8 @@ import { useForm, SubmitHandler, Controller, FormProvider } from 'react-hook-for
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { SignupFormInput } from './SignupFormInput';
-
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'
 
 interface IFormInputs {
     email: string;
@@ -19,11 +20,32 @@ interface IFormInputs {
 
 
 const schema = yup.object().shape({
-    email: yup.string().required().email(),
+    checkEmail: yup.boolean(),
+    email: yup
+        .string()
+        .required('Email must be provided.')
+        .email('The email must be valid.')
+        .test('Unique Email', 'Email already in use', // <- key, message
+            (value) => {
+                return new Promise((resolve, reject) => {
+                    axios.get(`http://localhost:5000/users`)
+                        .then((res) => {
+                            const user = res.data.find((u: any) => u.email === value);
+                            if (user) resolve(false);
+                            resolve(true)
+                        })
+                    // .catch((error) => {
+                    //     if (error.response.data.content === "The email has already been taken.") {
+                    //         resolve(false);
+                    //     }
+                    // })
+                })
+            }
+        ),
     password: yup.string().required().min(6).max(20),
-    confirmPassword: yup.string().required().min(6).max(20),
-    firstname: yup.string().required(),
-    lastname: yup.string().required()
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'The passwords must match.'),
+    firstname: yup.string().required('Firstname must be provided.'),
+    lastname: yup.string().required('Lastname must be provided.')
 });
 
 
@@ -32,13 +54,27 @@ const Signup = () => {
 
     const methods = useForm<IFormInputs>(
         {
-            mode: 'onBlur',
+            mode: 'onTouched',
             resolver: yupResolver(schema),
         });
 
 
     const formSubmitHandler: SubmitHandler<IFormInputs> = (/*{ email, password }*/ data: IFormInputs) => {
-        console.log('submitted data:\n', data);
+        const { errors } = methods.formState;
+        const user = {
+            id: uuidv4(),
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            password: data.password
+        }
+        axios.post('http://localhost:5000/users', user)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
 
@@ -76,6 +112,7 @@ const Signup = () => {
                                     label='Firstname'
                                     name='firstname'
                                     id='firstname'
+                                    type="text"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -83,6 +120,7 @@ const Signup = () => {
                                     label='Lastname'
                                     name='lastname'
                                     id='lastname'
+                                    type="text"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -90,6 +128,7 @@ const Signup = () => {
                                     label='Email address'
                                     name='email'
                                     id='email'
+                                    type="email"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -97,6 +136,7 @@ const Signup = () => {
                                     label='password'
                                     name='password'
                                     id='password'
+                                    type="password"
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -104,6 +144,7 @@ const Signup = () => {
                                     label='Confirm password'
                                     name='confirmPassword'
                                     id='confirmPassword'
+                                    type='password'
                                 />
                             </Grid>
                         </Grid>
