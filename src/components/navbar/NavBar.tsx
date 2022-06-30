@@ -11,10 +11,16 @@ import {
 } from '@mui/material'
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../../contexts/AuthContext';
+
 
 const NavBar = () => {
+  let navigate = useNavigate();
+
+  const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
+
   return (
     <AppBar
       position='static'
@@ -67,17 +73,26 @@ const NavBar = () => {
             component={Link}
             to='./store'
           >Store</Button>
-          <Button
+          {!isLoggedIn && <Button
             color="inherit"
             component={Link}
             to='./signin'
-          >Sign in</Button>
-          <Button
+          >Sign in</Button>}
+          {!isLoggedIn && <Button
             color="inherit"
             variant='outlined'
             component={Link}
             to='./signup'
-          >Sign up</Button>
+          >Sign up</Button>}
+          {isLoggedIn && <Button
+            color="inherit"
+            variant='outlined'
+            onClick={() => {
+              localStorage.removeItem('loggedIn');
+              ToggleLogin();
+              navigate('/');
+            }}
+          >Log out</Button>}
         </Stack>
       </Toolbar>
     </AppBar >

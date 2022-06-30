@@ -1,12 +1,16 @@
 import { render } from '@testing-library/react';
 import { createContext } from 'react'
 
-const AuthContext = createContext(null);
+interface IAuth {
+    isLoggedIn: boolean;
+    ToggleLogin: any
+}
 
-// export default function AuthProvider({ children }) {
-//     return (
-//         <AuthContext.Provider>
-//             {children}
-//         </AuthContext.Provider>
-//     )
-// }
+
+const defaultState = {
+    isLoggedIn: false,
+};
+
+const AuthContext = createContext<Partial<IAuth>>(defaultState);
+
+export default AuthContext;

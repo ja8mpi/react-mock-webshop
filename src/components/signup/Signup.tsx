@@ -42,12 +42,11 @@ const schema = yup.object().shape({
                 })
             }
         ),
-    password: yup.string().required().min(6).max(20),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'The passwords must match.'),
+    password: yup.string().required('Password must be provided').min(6).max(20),
+    confirmPassword: yup.string().required('Password confrimation must be provided').oneOf([yup.ref('password'), null], 'The passwords must match.'),
     firstname: yup.string().required('Firstname must be provided.'),
     lastname: yup.string().required('Lastname must be provided.')
 });
-
 
 
 const Signup = () => {
