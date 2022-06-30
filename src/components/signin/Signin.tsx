@@ -3,6 +3,48 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Box } from '@mui/system';
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useForm, SubmitHandler, Controller, FormProvider } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import axios from 'axios';
+
+interface IFormInputs {
+    email: string;
+    password: string;
+    confirmPassword: string;
+    firstname: string;
+    lastname: string;
+}
+
+
+const schema = yup.object().shape({
+    checkEmail: yup.boolean(),
+    email: yup
+        .string()
+        .required('Email must be provided.')
+        .email('The email must be valid.')
+        .test('Unique Email', 'Email already in use', // <- key, message
+            (value) => {
+                return new Promise((resolve, reject) => {
+                    axios.get(`http://localhost:5000/users`)
+                        .then((res) => {
+                            const user = res.data.find((u: any) => u.email === value);
+                            if (user) resolve(false);
+                            resolve(true)
+                        })
+                    // .catch((error) => {
+                    //     if (error.response.data.content === "The email has already been taken.") {
+                    //         resolve(false);
+                    //     }
+                    // })
+                })
+            }
+        ),
+    password: yup.string().required().min(6).max(20),
+    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'The passwords must match.'),
+    firstname: yup.string().required('Firstname must be provided.'),
+    lastname: yup.string().required('Lastname must be provided.')
+});
 
 const SignIn = () => {
     return (
