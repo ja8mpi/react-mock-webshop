@@ -5,7 +5,18 @@
       "firstname": "Ákos",
       "lastname": "Bollók",
       "email": "bollokakos.14@gmail.com",
-      "password": "12345"
+      "password": "12345",
+      "order":[
+        { 
+          "id":"12313",
+          "items":[
+            {
+              "id":1,
+              "quantity":12
+            }
+          ]
+        }
+      ]
     },
     {
       "id": 2,
@@ -33,19 +44,45 @@
     {
       "id": 1,
       "name": "Lego car",
+      "src": "/public/plane.png",
       "category": {
-        "category": "toy",
+        "name": "toy",
         "subcategory": "lego"
       },
-      "price": 53.23,
+      "price": 41.20,
       "productionYear": "2021",
       "description": ""
     },
     {
       "id": 2,
       "name": "Lego plane",
+      "src": "/images/plane.png",
       "category": {
-        "category": "toy",
+        "name": "toy",
+        "subcategory": "lego"
+      },
+      "price": 12.21,
+      "productionYear": "2021",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "name": "Lego truck",
+      "src": "/public/truck.png",
+      "category": {
+        "name": "toy",
+        "subcategory": "lego"
+      },
+      "price": 10.10,
+      "productionYear": "2021",
+      "description": ""
+    },
+    {
+      "id": 4,
+      "name": "Lego tank",
+      "src": "/public/tank.png",
+      "category": {
+        "name": "toy",
         "subcategory": "lego"
       },
       "price": 53.23,

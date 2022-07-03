@@ -13,6 +13,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { StoreContext } from '../../contexts/StoreContext';
 import AuthContext from '../../contexts/AuthContext';
 
 
@@ -20,6 +21,8 @@ const NavBar = () => {
   let navigate = useNavigate();
 
   const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
+
+  const { cart } = useContext(StoreContext);
 
   return (
     <AppBar
@@ -53,7 +56,7 @@ const NavBar = () => {
             to='./cart'
           >
             <Badge
-              badgeContent="0"
+              badgeContent={cart?.itemQuantity}
               color="error"
               overlap="circular"
               style={{

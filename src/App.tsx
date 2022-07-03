@@ -8,6 +8,7 @@ import AuthContext from "./contexts/AuthContext";
 import { useEffect, useState } from "react";
 import Profile from "./components/profile/Profile";
 import { Cart } from "./components/cart/Cart";
+import { StoreContextProvider } from "./contexts/StoreContext";
 // import { ShopProvider } from "./contexts/ProductsContext";
 
 
@@ -31,16 +32,18 @@ const App = () => {
                 ToggleLogin
             }}
         >
-            < NavBar />
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/cart' element={<Cart />} />
-                <Route path='/store' element={<Store />} />
-                {!loggedIn && <Route path='/signup' element={<Signup />} />}
-                {!loggedIn && <Route path='/signin' element={<SignIn />} />}
+            <StoreContextProvider>
+                < NavBar />
+                <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/cart' element={<Cart />} />
+                    <Route path='/store' element={<Store />} />
+                    {!loggedIn && <Route path='/signup' element={<Signup />} />}
+                    {!loggedIn && <Route path='/signin' element={<SignIn />} />}
 
-                {loggedIn && <Route path='/profile' element={<Profile />} />}
-            </Routes>
+                    {loggedIn && <Route path='/profile' element={<Profile />} />}
+                </Routes>
+            </StoreContextProvider>
         </AuthContext.Provider>
     )
 }
