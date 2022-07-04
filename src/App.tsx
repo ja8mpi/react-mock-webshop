@@ -18,6 +18,8 @@ const App = () => {
 
     const isLoggedIn = localStorage.getItem("loggedIn");
 
+    const { ToggleLogin } = useContext(AuthContext);
+
     const aggreed = localStorage.getItem("aggreed");
 
     const [open, setOpen] = useState((aggreed ? false : true));

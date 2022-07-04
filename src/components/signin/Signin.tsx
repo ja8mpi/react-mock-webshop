@@ -52,11 +52,11 @@ const SignIn = () => {
             .then(({ data }) => {
                 const user = data.find((u: any) => u.email === email);
                 if (user && user.password === password) {
-                    ToggleLogin();
                     localStorage.setItem('user', JSON.stringify({
                         ...user,
                         password: ''
                     }));
+                    ToggleLogin();
                     navigate('/store');
                 } else {
                     setError(true);

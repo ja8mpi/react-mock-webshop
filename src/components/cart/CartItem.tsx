@@ -9,20 +9,38 @@ function CartItem({ id, name, price, quantity, src }: any) {
 
     const [quantityState, setQuantityState] = useState(quantity);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
 
-        const value = Number(e.target.value)
-        if (value === 0) {
+        const value = Number(e.target.value);
+
+        console.log('value', value)
+        console.log('quantityState', quantityState)
+
+        if (value === 0 && e.target.value !== "") {
             dispatchCart({ type: 'remove', id, quantity: 1 });
-        } else if (e.target.value < quantityState) {
-            dispatchCart({ type: 'decrease', id, quantity: 1 });
-            setQuantityState(e.target.value);
-        } else if (e.target.value > quantityState) {
+        } else if (value < quantityState) {
+            console.log('difference: ', quantityState - value);
+            dispatchCart({ type: 'decrease', id, quantity: quantityState - value });
+            setQuantityState(value);
+        } else if (value > quantityState) {
             console.log('increased');
-            dispatchCart({ type: 'increase', id, quantity: 1 });
-            setQuantityState(e.target.value);
+            dispatchCart({ type: 'increase', id, quantity: value - quantityState });
+            setQuantityState(value);
         }
 
+    }
+
+    const handleCHange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.target.value);
+        if (value - 1 === quantityState) {
+            dispatchCart({ type: 'increase', id, quantity: 1 });
+            setQuantityState(value);
+        } else if (value + 1 === quantityState) {
+            dispatchCart({ type: 'decrease', id, quantity: 1 });
+            setQuantityState(value);
+        } else {
+            return;
+        }
     }
 
     return (
@@ -61,10 +79,13 @@ function CartItem({ id, name, price, quantity, src }: any) {
                     defaultValue={quantity}
                     InputProps={{
                         inputProps: {
-                            min: 0
+                            min: 0,
+                            inputMode: 'numeric',
+                            pattern: '[0-9]*',
                         }
                     }}
-                    onChange={handleChange}
+                    onChange={handleCHange}
+                    onBlur={handleBlur}
                 />
             </TableCell>
             <TableCell>

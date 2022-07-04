@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Navigate, Route } from 'react-router-dom';
+import Order from '../order/Order';
 
 const Profile = () => {
 
@@ -63,15 +64,7 @@ const Profile = () => {
                         !orders ? <Typography variant='h6' component='p'>No orders</Typography>
                             :
                             <Stack>
-                                {
-                                    orders.map((order: any) => {
-                                        return (
-                                            <div key={order.id}>
-                                                {order.price}
-                                            </div>
-                                        )
-                                    })
-                                }
+                                <Order orders={orders} />
                             </Stack>
                     }
                 </Container>

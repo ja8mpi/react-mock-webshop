@@ -99,8 +99,8 @@ const NavBar = () => {
             color="inherit"
             variant='outlined'
             onClick={() => {
-              ToggleLogin();
               localStorage.removeItem('user');
+              ToggleLogin();
               navigate('/');
             }}
           >Log out</Button>}
