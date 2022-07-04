@@ -31,7 +31,8 @@ const schema = yup.object().shape({
 
 const SignIn = () => {
 
-    const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
+    const { ToggleLogin } = useContext(AuthContext);
+    // const isLoggedIn = localStorage.getItem('loggedIn');
 
     let navigate = useNavigate();
 
@@ -51,10 +52,12 @@ const SignIn = () => {
             .then(({ data }) => {
                 const user = data.find((u: any) => u.email === email);
                 if (user && user.password === password) {
-                    localStorage.setItem('loggedIn', 'true');
                     ToggleLogin();
-                    navigate('/profile');
-                    console.log('logged in');
+                    localStorage.setItem('user', JSON.stringify({
+                        ...user,
+                        password: ''
+                    }));
+                    navigate('/store');
                 } else {
                     setError(true);
                     console.log('not logged in');

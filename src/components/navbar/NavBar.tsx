@@ -20,9 +20,12 @@ import AuthContext from '../../contexts/AuthContext';
 const NavBar = () => {
   let navigate = useNavigate();
 
-  const { isLoggedIn, ToggleLogin } = useContext(AuthContext);
+  const { ToggleLogin } = useContext(AuthContext);
+
+  const isLoggedIn = localStorage.getItem('loggedIn');
 
   const { cart } = useContext(StoreContext);
+
 
   return (
     <AppBar
@@ -74,30 +77,30 @@ const NavBar = () => {
           <Button
             color="inherit"
             component={Link}
-            to='./store'
+            to='/store'
           >Store</Button>
           {isLoggedIn && <Button
             color="inherit"
             component={Link}
-            to='./profile'
+            to='/profile'
           >Profile</Button>}
           {!isLoggedIn && <Button
             color="inherit"
             component={Link}
-            to='./signin'
+            to='/signin'
           >Sign in</Button>}
           {!isLoggedIn && <Button
             color="inherit"
             variant='outlined'
             component={Link}
-            to='./signup'
+            to='/signup'
           >Sign up</Button>}
           {isLoggedIn && <Button
             color="inherit"
             variant='outlined'
             onClick={() => {
-              localStorage.removeItem('loggedIn');
               ToggleLogin();
+              localStorage.removeItem('user');
               navigate('/');
             }}
           >Log out</Button>}

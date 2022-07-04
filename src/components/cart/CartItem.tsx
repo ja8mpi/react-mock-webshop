@@ -75,6 +75,7 @@ function CartItem({ id, name, price, quantity, src }: any) {
                 <Button
                     variant='outlined'
                     color='error'
+                    onClick={() => dispatchCart({ type: 'remove', id, quantity: quantity })}
                 >
                     Remove
                 </Button>

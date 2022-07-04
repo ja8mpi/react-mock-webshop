@@ -1,17 +1,70 @@
-import { Typography } from '@mui/material';
-import React from 'react'
+import { Container, Paper, Table, Grid, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Stack } from '@mui/material';
+import { Box } from '@mui/system';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import { Navigate, Route } from 'react-router-dom';
 
 const Profile = () => {
 
     const isLoggedIn = true;
+
+    const user = JSON.parse(localStorage.getItem('user')!);
+
+    const [orders, setOrders] = useState<any>([]);
+
+    useEffect(() => {
+        const fetchMyData = async () => {
+            const { data } = await axios.get(`http://localhost:5000/orders?userid=${user.id}`)
+
+            if (data) {
+                setOrders(data);
+            } else {
+                // There was an error fetching the data
+            }
+        };
+
+        fetchMyData();
+    }, []);
+
     return (
-        <Typography
-            variant='h1'
-            component='h1'
+        <Container
+            sx={{
+                display: 'flex',
+                alignItems: 'baseline',
+                justifyContent: 'center',
+                height: '100vh',
+                backgroundColor: 'primary.info',
+                paddingTop: '10%'
+            }}
         >
-            Profile
-        </Typography>
+            <Stack spacing={2}>
+                <Container>
+                    <Typography
+                        variant='h4'
+                        component='h1'
+                    >
+                        Personal info
+                    </Typography>
+                    <Typography>
+                        firstname: {user.firstname}
+                    </Typography>
+                    <Typography>
+                        lastname: {user.lastname}
+                    </Typography>
+                    <Typography>
+                        email: {user.email}
+                    </Typography>
+                </Container>
+                <Container>
+                    <Typography
+                        variant='h4'
+                        component='h1'
+                    >
+                        Orders
+                    </Typography>
+                </Container>
+            </Stack>
+        </Container>
     )
 }
 

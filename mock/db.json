@@ -6,13 +6,13 @@
       "lastname": "Bollók",
       "email": "bollokakos.14@gmail.com",
       "password": "12345",
-      "order":[
-        { 
-          "id":"12313",
-          "items":[
+      "order": [
+        {
+          "id": "12313",
+          "items": [
             {
-              "id":1,
-              "quantity":12
+              "id": 1,
+              "quantity": 12
             }
           ]
         }
@@ -49,7 +49,7 @@
         "name": "toy",
         "subcategory": "lego"
       },
-      "price": 41.20,
+      "price": 41.2,
       "productionYear": "2021",
       "description": ""
     },
@@ -73,7 +73,7 @@
         "name": "toy",
         "subcategory": "lego"
       },
-      "price": 10.10,
+      "price": 10.1,
       "productionYear": "2021",
       "description": ""
     },
@@ -90,6 +90,40 @@
       "description": ""
     }
   ],
-  "orders":[
+  "orders": [
+    {
+      "id": "701a8cc2-9f3d-4d4c-b2e9-e0657ba12e14",
+      "userId": 1,
+      "items": [
+        {
+          "id": 2,
+          "quantity": 4
+        },
+        {
+          "id": 3,
+          "quantity": 4
+        }
+      ],
+      "price": "89.24"
+    },
+    {
+      "id": "009df338-4290-4da1-bf7e-3ce4fb831ea2",
+      "userId": 1,
+      "items": [
+        {
+          "id": 2,
+          "quantity": 4
+        },
+        {
+          "id": 1,
+          "quantity": 7
+        },
+        {
+          "id": 3,
+          "quantity": 4
+        }
+      ],
+      "price": "377.64"
+    }
   ]
 }

@@ -5,6 +5,7 @@ import React, { useContext } from 'react'
 import AuthContext from '../../contexts/AuthContext';
 import { StoreContext } from '../../contexts/StoreContext';
 import CartItem from './CartItem';
+import { v4 as uuidv3 } from 'uuid'
 
 export const Cart = () => {
 
@@ -31,16 +32,29 @@ export const Cart = () => {
     // })
 
     const handleSubmitOrder = () => {
-        axios.post('/orders', {
-            firstName: 'Fred',
-            lastName: 'Flintstone'
-        })
-            .then(function (response) {
-                console.log(response);
+
+        const userString = localStorage.getItem('user');
+
+
+        if (userString) {
+            const user = JSON.parse(userString);
+            axios.post('http://localhost:5000/orders', {
+                id: uuidv3(),
+                userId: user.id,
+                items: cart.items,
+                price: fullPrice
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    dispatchCart({ type: 'empty', id: 0, quantity: 0 })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+
+        }
+
+
     }
 
     const handleEmpty = () => {

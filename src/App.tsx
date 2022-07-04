@@ -4,8 +4,8 @@ import Store from './components/store/Store';
 import SignIn from './components/signin/Signin';
 import Signup from './components/signup/Signup';
 import NavBar from './components/navbar/NavBar';
-import AuthContext from "./contexts/AuthContext";
-import { useEffect, useState } from "react";
+import AuthContext, { AuthContextProvider } from "./contexts/AuthContext";
+import { useContext, useEffect, useState } from "react";
 import Profile from "./components/profile/Profile";
 import { Cart } from "./components/cart/Cart";
 import { StoreContextProvider } from "./contexts/StoreContext";
@@ -14,37 +14,27 @@ import { StoreContextProvider } from "./contexts/StoreContext";
 
 const App = () => {
 
-    const [loggedIn, setLoggedIn] = useState(false)
+    const isLoggedIn = localStorage.getItem("loggedIn");
 
-    useEffect(() => {
-        setLoggedIn(!!localStorage.getItem('loggedIn'));
-    }, []);
-
-    const ToggleLogin = () => {
-        setLoggedIn(!loggedIn);
-    }
-
+    console.log(isLoggedIn)
 
     return (
-        <AuthContext.Provider
-            value={{
-                isLoggedIn: loggedIn,
-                ToggleLogin
-            }}
-        >
+        <AuthContextProvider>
             <StoreContextProvider>
                 < NavBar />
                 <Routes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/cart' element={<Cart />} />
-                    <Route path='/store' element={<Store />} />
-                    {!loggedIn && <Route path='/signup' element={<Signup />} />}
-                    {!loggedIn && <Route path='/signin' element={<SignIn />} />}
+                    <Route path='/'>
+                        <Route path='' element={<Home />} />
+                        <Route path='/cart' element={<Cart />} />
+                        <Route path='/store' element={<Store />} />
+                        {!isLoggedIn && <Route path='signup' element={<Signup />} />}
+                        {!isLoggedIn && <Route path='signin' element={<SignIn />} />}
 
-                    {loggedIn && <Route path='/profile' element={<Profile />} />}
+                        {isLoggedIn && <Route path='profile' element={<Profile />} />}
+                    </Route>
                 </Routes>
             </StoreContextProvider>
-        </AuthContext.Provider>
+        </AuthContextProvider>
     )
 }
 

@@ -108,10 +108,6 @@ const handleEmptyCart = (state: CartState, action: CartAction) => {
     return initialCartState;
 }
 
-const handleOrderByCart = (state: CartState, action: CartAction) => {
-
-}
-
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
 
