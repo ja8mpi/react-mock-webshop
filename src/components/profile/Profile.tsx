@@ -6,16 +6,13 @@ import { Navigate, Route } from 'react-router-dom';
 
 const Profile = () => {
 
-    const isLoggedIn = true;
-
     const user = JSON.parse(localStorage.getItem('user')!);
 
     const [orders, setOrders] = useState<any>([]);
 
     useEffect(() => {
         const fetchMyData = async () => {
-            const { data } = await axios.get(`http://localhost:5000/orders?userid=${user.id}`)
-
+            const { data } = await axios.get(`http://localhost:5000/orders?userid=${user.id}`);
             if (data) {
                 setOrders(data);
             } else {
@@ -62,6 +59,21 @@ const Profile = () => {
                     >
                         Orders
                     </Typography>
+                    {
+                        !orders ? <Typography variant='h6' component='p'>No orders</Typography>
+                            :
+                            <Stack>
+                                {
+                                    orders.map((order: any) => {
+                                        return (
+                                            <div key={order.id}>
+                                                {order.price}
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </Stack>
+                    }
                 </Container>
             </Stack>
         </Container>
