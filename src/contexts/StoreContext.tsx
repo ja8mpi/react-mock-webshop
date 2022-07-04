@@ -10,7 +10,6 @@ export type ProductType = {
     price: number,
     productionYear: number,
     description: string
-
 }
 
 type StoreContextType = {
@@ -36,13 +35,15 @@ export const removeFromCart = (id: number) => { }
 
 export const StoreContext = createContext<StoreContextType>({} as StoreContextType);
 
+export type CartItemType = {
+    id: number
+    quantity: number
+}
+
 export type CartState = {
     itemQuantity: number,
-    items: {
-        item: ProductType,
-        quantity: number
-    }[] | null
-} | null
+    items: CartItemType[] | null
+}
 
 export type CartAction = {
     type: string,
@@ -52,9 +53,24 @@ export type CartAction = {
 
 
 //handler functions for adding and removing items from cart
-const handleAddToCart = (state: CartState, action: CartAction) => {
-    console.log(action)
-    return state;
+const handleAddToCart = (state: CartState, action: CartAction): CartState => {
+    let newItems = [];
+    if (!state?.items) {
+        newItems?.push({
+            id: action?.id,
+            quantity: action?.quantity
+        })
+    } else if (!state?.items.some(item => item.id === action.id)) {
+        newItems = [...state?.items, { id: action.id, quantity: action.quantity }]
+    } else {
+        newItems = state.items.map(item => {
+            if (item.id === action.id)
+                return { ...item, quantity: item.quantity + action.quantity };
+            return item;
+        });
+    }
+
+    return { itemQuantity: state.itemQuantity + action.quantity, items: newItems }
 }
 
 const handleRemoveToCart = (state: CartState, action: CartAction) => {
@@ -73,14 +89,15 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
 }
 
+const initialCartState = {
+    itemQuantity: 0,
+    items: null
+}
+
 export const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
 
     const [products, setProducts] = useState();
 
-    const initialCartState = {
-        itemQuantity: 0,
-        items: null
-    }
 
     const [cart, dispatch] = useReducer(cartReducer, initialCartState);
 
