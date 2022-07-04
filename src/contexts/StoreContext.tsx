@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { createContext, useState, useEffect, useReducer } from 'react';
+import { createContext, useState, useEffect, useReducer, useContext } from 'react';
+import AuthContext from './AuthContext';
 
 
 export type ProductType = {
@@ -42,7 +43,7 @@ export type CartItemType = {
 
 export type CartState = {
     itemQuantity: number,
-    items: CartItemType[] | null
+    items: CartItemType[]
 }
 
 export type CartAction = {
@@ -51,18 +52,20 @@ export type CartAction = {
     id: number
 }
 
+type CartActionWithOptions = {
+
+}
 
 //handler functions for adding and removing items from cart
 const handleAddToCart = (state: CartState, action: CartAction): CartState => {
     let newItems = [];
-    if (!state?.items) {
-        newItems?.push({
-            id: action?.id,
-            quantity: action?.quantity
-        })
-    } else if (!state?.items.some(item => item.id === action.id)) {
-        newItems = [...state?.items, { id: action.id, quantity: action.quantity }]
-    } else {
+    if (!state?.items.some(item => item.id === action.id)) {
+        newItems = [...state?.items, {
+            id: action.id,
+            quantity: action.quantity
+        }]
+    }
+    else {
         newItems = state.items.map(item => {
             if (item.id === action.id)
                 return { ...item, quantity: item.quantity + action.quantity };
@@ -73,29 +76,68 @@ const handleAddToCart = (state: CartState, action: CartAction): CartState => {
     return { itemQuantity: state.itemQuantity + action.quantity, items: newItems }
 }
 
+
+const handleDecreaseFromCart = (state: CartState, action: CartAction) => {
+    let newItems = state.items.map(item => {
+        if (item.id === action.id)
+            return { ...item, quantity: item.quantity - action.quantity };
+        return item;
+    });
+
+    return { itemQuantity: state.itemQuantity - action.quantity, items: newItems }
+}
+
+const handleIncreaseCart = (state: CartState, action: CartAction) => {
+    let newItems = state.items.map(item => {
+        if (item.id === action.id)
+            return { ...item, quantity: item.quantity + action.quantity };
+        return item;
+    });
+
+    return { itemQuantity: state.itemQuantity + action.quantity, items: newItems }
+}
+
+
 const handleRemoveToCart = (state: CartState, action: CartAction) => {
-    return state;
+    let newItems = state.items.filter(item => { return item.id !== action.id });
+
+    return { itemQuantity: state.itemQuantity - action.quantity, items: newItems }
+}
+
+const handleEmptyCart = (state: CartState, action: CartAction) => {
+    return initialCartState;
+}
+
+const handleOrderByCart = (state: CartState, action: CartAction) => {
+
 }
 
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
+
     switch (action.type) {
         case 'add':
             return handleAddToCart(state, action);
+        case 'decrease':
+            return handleDecreaseFromCart(state, action);
+        case 'increase':
+            return handleIncreaseCart(state, action);
         case 'remove':
             return handleRemoveToCart(state, action);
+        case 'empty':
+            return handleEmptyCart(state, action);
         default:
             return state
     }
 }
 
 const initialCartState = {
+    cartSize: 0,
     itemQuantity: 0,
-    items: null
+    items: []
 }
 
 export const StoreContextProvider = ({ children }: StoreContextProviderProps) => {
-
     const [products, setProducts] = useState();
 
 

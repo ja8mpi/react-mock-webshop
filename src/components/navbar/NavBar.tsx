@@ -76,6 +76,11 @@ const NavBar = () => {
             component={Link}
             to='./store'
           >Store</Button>
+          {isLoggedIn && <Button
+            color="inherit"
+            component={Link}
+            to='./profile'
+          >Profile</Button>}
           {!isLoggedIn && <Button
             color="inherit"
             component={Link}

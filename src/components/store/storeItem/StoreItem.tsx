@@ -16,11 +16,22 @@ export default function StoreItem({ id, name, description, src, price }: Product
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
-                component='img'
-                height="140"
-                image={src}
-                alt={name}
-            />
+                sx={{
+                    paddingTop: '10%',
+                    display: 'flex',
+                    alignItems: 'center'
+                }}
+            >
+                <img
+                    src={src}
+                    alt={name}
+                    style={{
+                        width: '70%',
+                        height: 'auto',
+                        margin: 'auto'
+                    }}
+                />
+            </CardMedia>
             <CardContent
             >
                 <Typography
