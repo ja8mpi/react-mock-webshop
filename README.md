@@ -1,6 +1,6 @@
 # Getting Started
 
-After cloning the repository, open your terminal in the project's folder and run npm install.
+After cloning the repository, open your terminal in the project's folder and run ###'npm install'.
 
 ## Available Scripts
 
